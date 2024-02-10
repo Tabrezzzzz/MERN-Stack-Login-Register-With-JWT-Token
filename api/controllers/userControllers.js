@@ -40,6 +40,7 @@ let registerController = async (req , res) => {
 console.log(error)
 }
 }
+
 let loginController = async (req , res) => {
     try{
       console.log(req.body)

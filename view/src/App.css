@@ -1,0 +1,254 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&display=swap");
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+.form-section {
+	height: 100svh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #663dff;
+	background-image: linear-gradient(
+		319deg,
+		#663dff 0%,
+		#aa00ff 37%,
+		#cc4499 100%
+	);
+}
+.home-section {
+	height: 100svh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #663dff;
+	background-image: linear-gradient(
+		319deg,
+		#663dff 0%,
+		#aa00ff 37%,
+		#cc4499 100%
+	);
+}
+.form-section > div {
+	width: 500px;
+	padding: 20px;
+	border-radius: 20px;
+	background: white;
+}
+.form-section > div > h1 {
+	font-size: 24px;
+	font-family: "outfit";
+	text-align: center;
+	color: #b210e7;
+}
+.form-buttons {
+	display: flex;
+	padding: 10px;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+}
+.form-buttons button {
+	border: none;
+	background: #2a2a2a;
+	color: white;
+	padding: 10px 20px;
+	font-family: "Outfit";
+	font-size: 15px;
+	border-radius: 20px;
+	cursor: pointer;
+}
+.form-buttons .active {
+	opacity: 0.8;
+}
+.form-container input {
+  height: 50px;
+  margin-bottom: 15px;
+  width: 100%;
+  background-color: rgb(251, 227, 255) !important;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  font-family: "outfit" !important;
+  font-size: 17px;
+  letter-spacing: 1px;
+  padding-left: 30px;
+}
+.form-container input:-internal-autofill-selected {
+	background-color: rgb(251, 227, 255) !important;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: #131313;
+	-webkit-transition: background-color 5000s ease-in-out 0s !important;
+	transition: background-color 5000s ease-in-out 0s !important;
+	-webkit-background-clip: border-box;
+}
+button[type="submit"] {
+	background: #b619d9;
+	width: 100%;
+	height: 50px;
+	border: none;
+	color: white !important;
+	font-family: outfit;
+	font-size: 20px;
+	border-radius: 8px;
+	cursor: pointer;
+}
+svg#upload-alt {
+	height: 25px;
+	width: 25px;
+}
+.Upload button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	padding: 15px;
+	border-radius: 8px;
+	font-family: "Outfit";
+	background: none;
+	border: 2px dashed #b619d9;
+	font-size: 15px;
+	cursor: pointer;
+	width: 100%;
+	height: 100px;
+	margin-top: 8px;
+}
+svg#upload-alt path {
+	fill: #b619d9;
+}
+.Upload p {
+	width: 245px;
+	font-family: "Outfit";
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap !important;
+}
+.Upload {
+	display: flex;
+	gap: 10px;
+	align-items: center;
+	flex-wrap: wrap;
+}
+.form-container label {
+	font-family: "Outfit";
+	color: #aa00fe;
+	margin-left: 5px;
+	display: flex;
+}
+.error-message {
+	font-weight: 300;
+	color: red;
+	font-size: 15px;
+	margin-top: -12px !important;
+	text-align: left;
+	font-family: "Outfit";
+	margin-left: 10px;
+}
+label[for="profileImage"] {
+	height: 100px;
+	margin-bottom: 20px;
+	width: auto;
+	/* overflow: hidden; */
+	display: block !important;
+}
+
+/* home css */
+.card-container {
+	height: 500px !important;
+	background: white !important;
+	padding: 20px;
+	width: 400px;
+	position: relative;
+	border-radius: 20px;
+	box-shadow: 0px 0px 20px 3px #4242424f, -4px -4px 50px 5px #a009ff,
+		6px 6px 50px 5px #c637ae;
+}
+.img-container img {
+  height: 180px;
+  width: 180px;
+  border-radius: 180px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+.img-container > div {
+	background: white;
+	width: auto;
+	padding: 6px;
+	box-shadow: 0px 0px 20px 5px #7a079f42;
+	display: inline-flex;
+	border-radius: 50%;
+	margin: auto !important;
+}
+.img-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	margin-top: -90px;
+}
+.card-container {
+	height: 500px !important;
+	background: white !important;
+	padding: 20px;
+	width: 400px;
+	position: relative;
+}
+.user-name {
+	font-size: 25px;
+	font-family: "Outfit";
+	color: #b91dd3;
+	text-align: center;
+}
+.user-data h4 {
+	font-size: 20px;
+	font-family: "Outfit";
+	color: #2a2a2a;
+	text-align: center;
+	font-weight: 400;
+}
+p.label {
+	text-align: center;
+	margin-top: 20px;
+	font-family: "Outfit";
+	text-transform: uppercase;
+	color: grey;
+	font-size: 14px;
+}
+.hashed p {
+	width: 100% !important;
+	text-wrap: wrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-weight: 500;
+}
+.logout {
+	background: #b619d9;
+	width: 95%;
+	height: 50px;
+	border: none;
+	color: white !important;
+	font-family: outfit;
+	font-size: 20px;
+	border-radius: 8px;
+	cursor: pointer;
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+	right: 10px;
+}
+.input-icon {
+	position: absolute;
+	left: 10px;
+	top: 35px;
+}
+span.password-icon {
+  position: absolute;
+  right: 10px;
+  top: 35px;
+}
