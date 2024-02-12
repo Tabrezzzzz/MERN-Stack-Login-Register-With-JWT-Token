@@ -4,7 +4,11 @@ let {
 	loginController,
 	registerController,
 	tokenController,
+  updateController,
+  isAuth
 } = require("../controllers/userControllers");
+
+// handle multipart Formdata 
 const multer  = require('multer')
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -23,6 +27,7 @@ const storage = multer.diskStorage({
 // });
 router.post("/login", loginController);
 router.post("/register",upload.single("profileImage"), registerController);
+router.post("/update-profile/:id",isAuth,upload.single("profileImage"), updateController);
 router.post("/verify-token", tokenController);
 
 module.exports = router;

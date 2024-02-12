@@ -56,7 +56,7 @@ let loginController = async (req , res) => {
             res.json({message: 'Password is Incorrect'})
         }else{
             const token = jwt.sign({ _id: emailExist._id }, process.env.PROFILE_LOGIN_JWT_SECRET, {
-                expiresIn: "300s",
+                expiresIn: "3000s",
               });
             res.json({
                 token, 
@@ -82,7 +82,6 @@ let tokenController = async (req, res) => {
           res.json({
             authUser,
             message: "Valid JWT Token"}, 200)
- 
         } else {
           res.status(201).json({ message: "Unauthorized" });
         }
@@ -91,11 +90,56 @@ let tokenController = async (req, res) => {
       }
 }
 
+let isAuth = async (req, res, next) => {
+  try {
+      if (req.headers.authorization) {
+      console.log(req.headers.authorization)
+        // Get token from header
+        const token = req.headers.authorization.split(" ")[1];
+        // Verify token
+        const decode = jwt.verify(token, process.env.PROFILE_LOGIN_JWT_SECRET);
+        // Attach token with request
+        req.user = decode;
+        let authUser = await user.findOne({_id : req.user._id});
+        if(authUser){
+          next()
+        } 
+      } else {
+        res.status(201).json({ message: "Unauthorized" });
+      }
+    } catch{
+      res.status(201).json({ message: "Unauthorized" });
+    }
+}
 
 
+let updateController = async (req, res) => {
+  let  id = req.params.id
+  let updateUser = await user.findOne({_id : id});
+  let profile
+  if(req.file){
+    console.log(req.body.profileImage)
+    if(req.file){
+      profile = req.file.filename;
+    }else{
+      profile=null
+    }
+  }
+let {name, email, profileImage, phoneNumber,} = req.body
+updateUser = await user.findByIdAndUpdate(id, {
+  name,
+  email,
+  phoneNumber,
+  profileImage: profile,
+  password: updateUser.password
+}, {new: true});
+  res.json({message:"User Updated Successfully", updateUser}, 200)
+}
 
 module.exports = {
     loginController,
     registerController,
     tokenController,
+    updateController,
+    isAuth
 }
