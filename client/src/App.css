@@ -274,3 +274,7 @@ h2.component-title {
     color: #b619d9;
     font-family: "outfit";
 }
+.form-container input:focus {
+    border: none;
+    outline: none;
+}
