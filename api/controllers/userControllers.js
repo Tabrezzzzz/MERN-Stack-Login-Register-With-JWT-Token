@@ -1,7 +1,6 @@
 const user = require("../models/userModel")
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const multer  = require('multer')
 
 
 
@@ -94,11 +93,8 @@ let isAuth = async (req, res, next) => {
   try {
       if (req.headers.authorization) {
       console.log(req.headers.authorization)
-        // Get token from header
-        const token = req.headers.authorization.split(" ")[1];
-        // Verify token
+        const token = req.headers.authorization.split(" ")[1]; 
         const decode = jwt.verify(token, process.env.PROFILE_LOGIN_JWT_SECRET);
-        // Attach token with request
         req.user = decode;
         let authUser = await user.findOne({_id : req.user._id});
         if(authUser){
@@ -136,10 +132,49 @@ updateUser = await user.findByIdAndUpdate(id, {
   res.json({message:"User Updated Successfully", updateUser}, 200)
 }
 
+let confirmEmailController = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const emailExist = await user.findOne({ email });
+
+    if (!emailExist) {
+      return res.status(404).json({ message: "Email not found" });
+    }
+
+    res.json({ message: "Email confirmed successfully" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+let setNewPasswordController = async (req, res) => {
+  try {
+    const { email, newPassword } = req.body;
+    const emailExist = await user.findOne({ email });
+
+    if (!emailExist) {
+      return res.status(404).json({ message: "Email not found" });
+    }
+
+    // Update the user's password with the new one
+    emailExist.password = bcrypt.hashSync(newPassword, 8);
+    await emailExist.save();
+
+    res.json({ message: "Password reset successfully" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+
 module.exports = {
-    loginController,
-    registerController,
-    tokenController,
-    updateController,
-    isAuth
+  loginController,
+  registerController,
+  tokenController,
+  updateController,
+  isAuth,
+  confirmEmailController,
+  setNewPasswordController,
 }

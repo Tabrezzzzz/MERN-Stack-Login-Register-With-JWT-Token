@@ -3,9 +3,16 @@ import { Formik, Form, Field, useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
-import { FaArrowRightToBracket, FaEnvelope, FaLock, FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
+import {
+	FaArrowRight,
+	FaArrowRightToBracket,
+	FaEnvelope,
+	FaLock,
+	FaRegEye,
+	FaRegEyeSlash,
+} from "react-icons/fa6";
 
-export const Login = (props) => {
+export const Login = ({ setForgotPassword }) => {
 	const [responseMessage, setResponseMessage] = useState("");
 	const [showPassword, setShowPassword] = useState(false);
 
@@ -34,7 +41,7 @@ export const Login = (props) => {
 				localStorage.removeItem("token");
 				localStorage.setItem("token", response.data.token);
 				if (response.data.message == "User Logged in successfully") {
-					navigate("/")
+					navigate("/");
 				} else {
 					console.log("Err");
 				}
@@ -58,8 +65,8 @@ export const Login = (props) => {
 					<FaEnvelope color="#b619d9" />
 				</span>
 				<p className={formik.errors.email ? "error-message" : ""}>
-						{formik.errors.email ? formik.errors.email : ""}
-					</p>
+					{formik.errors.email ? formik.errors.email : ""}
+				</p>
 			</div>
 			<div style={{ position: "relative" }}>
 				<label> Password</label>
@@ -70,31 +77,40 @@ export const Login = (props) => {
 					value={formik.values.password}
 				/>
 				<span className="password-icon">
-				{showPassword ? (
-							<FaRegEyeSlash
-								color="#b619d9"
-								onClick={(e) => setShowPassword(false)}
-								cursor={"pointer"}
-							/>
-						) : (
-							<FaRegEye
-								color="#b619d9"
-								onClick={(e) => setShowPassword(true)}
-								cursor={"pointer"}
-							/>
-						)}
+					{showPassword ? (
+						<FaRegEyeSlash
+							color="#b619d9"
+							onClick={(e) => setShowPassword(false)}
+							cursor={"pointer"}
+						/>
+					) : (
+						<FaRegEye
+							color="#b619d9"
+							onClick={(e) => setShowPassword(true)}
+							cursor={"pointer"}
+						/>
+					)}
 				</span>
 				<span className="input-icon">
-					<FaLock color="#b619d9"/>
-					</span>
+					<FaLock color="#b619d9" />
+				</span>
 				<p className={formik.errors.password ? "error-message" : ""}>
-						{formik.errors.password ? formik.errors.password : ""}
-					</p>
+					{formik.errors.password ? formik.errors.password : ""}
+				</p>
 			</div>
 
 			<button type="submit">
 				Login <FaArrowRightToBracket fontSize={"15px"} />
 			</button>
+			<div className="forgot-password">
+				<span 
+				onClick={() => setForgotPassword(true)} 
+				style={{cursor:"pointer", fontSize:"14px"}}
+				>
+					Forgot Password ?
+					<FaArrowRight  style={{ margin: "0px 0px -2px 5px" }} />
+				</span>
+			</div>
 			{responseMessage ? <>{responseMessage}</> : null}
 		</form>
 	);

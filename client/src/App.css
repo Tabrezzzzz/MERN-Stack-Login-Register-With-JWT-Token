@@ -75,6 +75,9 @@
   letter-spacing: 1px;
   padding-left: 30px;
 }
+.form-container{
+	position: relative;
+}
 .form-container input:-internal-autofill-selected {
 	background-color: rgb(251, 227, 255) !important;
 }
@@ -244,20 +247,30 @@ span.password-icon {
   right: 10px;
   top: 35px;
 }
-.cancel-edit {
-    text-align: center;
-    font-family: outfit;
-    height: 30px;
+.forgot-password{
+	text-align: center;
+	color: #b619d9;
+	font-family: "outfit" !important;
+	padding: 10px 0px 0px 0px;
+}
+.Exit-Forgot-Password, .cancel-edit {
     width: 30px;
-    border-radius: 8px;
-    background: rgb(182, 25, 217);
-    color: white;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    height: 30px;
     position: absolute;
-    right: 0;
-    cursor: pointer;
-    top: 0;
+    z-index: 9999 !important;
+    background-image: linear-gradient(  319deg,  #663dff 0%,  #aa00ff 37%,  #cc4499 100% );
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 7px 13px 7px 7px;
+    color: white;
+    right: -14px;
+    top: -14px;
+	cursor: pointer;
+}
+h2.component-title {
+    text-align: center;
+    padding-bottom: 10px;
+    color: #b619d9;
+    font-family: "outfit";
 }

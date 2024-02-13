@@ -10,6 +10,7 @@ import {
 	FaRegEye,
 	FaRegEyeSlash,
 	FaLock,
+	FaX,
 } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 
@@ -114,12 +115,10 @@ export const UpdateProfile = ({ currentUser, setCurrentUser, setEdit }) => {
 	let imageUpload = useRef();
 	return (
 		<div>
-			<div
-				onClick={() => setEdit(false)}
-				className="cancel-edit"
-			>
-				X
+			<div onClick={() => setEdit(false)} className="cancel-edit">
+				<FaX />
 			</div>
+			<h2 className="component-title">Update Profile</h2>
 			<form onSubmit={formik.handleSubmit} encType="multipart/form-data">
 				<div style={{ position: "relative" }}>
 					<label> Name </label>

@@ -30,6 +30,8 @@ connectDatabase()
 //     }
 // }
 // destroyUsers()
+
+
 // creating base API 
 app.use("/api/user", require('./Routes/userRoutes'))
 app.get("/uploads/:name", (req, res, next) => {

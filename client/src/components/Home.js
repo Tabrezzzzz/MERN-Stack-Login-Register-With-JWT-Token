@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FaArrowRightToBracket, FaPenToSquare } from "react-icons/fa6";
 import { Register } from "./LoginRegister/Register";
-import '../App.css';
+import "../App.css";
 import { UpdateProfile } from "./UpdateProfile";
 
 export const Home = () => {
 	const [currentUser, setCurrentUser] = useState();
-  const [edit, setEdit] = useState(false)
+	const [edit, setEdit] = useState(false);
 
 	useEffect(() => {
 		const getUser = async () => {
@@ -57,7 +57,7 @@ export const Home = () => {
 								fontSize={"20px"}
 								color={"#b91dd3"}
 								cursor={"pointer"}
-                onClick={() => setEdit(true)}
+								onClick={() => setEdit(true)}
 							/>
 						</div>
 						<div className="user-name">
@@ -76,16 +76,20 @@ export const Home = () => {
 							<p className="label">Hashed Password</p>
 							<p>{currentUser.password}</p>
 						</div>
-            <button className="logout" onClick={() => userLogout()}>
-					Logout <FaArrowRightToBracket fontSize={"15px"} />
-				</button>
+						<button className="logout" onClick={() => userLogout()}>
+							Logout <FaArrowRightToBracket fontSize={"15px"} />
+						</button>
 					</>
 				) : null}
-        {currentUser && edit ? (
+				{currentUser && edit ? (
 					<>
-          <div className="form-container">
-						<UpdateProfile setEdit={setEdit} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
-            </div>
+						<div className="form-container">
+							<UpdateProfile
+								setEdit={setEdit}
+								currentUser={currentUser}
+								setCurrentUser={setCurrentUser}
+							/>
+						</div>
 					</>
 				) : null}
 			</div>

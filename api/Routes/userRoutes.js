@@ -5,6 +5,8 @@ let {
 	registerController,
 	tokenController,
   updateController,
+  confirmEmailController,
+  setNewPasswordController,
   isAuth
 } = require("../controllers/userControllers");
 
@@ -27,7 +29,9 @@ const storage = multer.diskStorage({
 // });
 router.post("/login", loginController);
 router.post("/register",upload.single("profileImage"), registerController);
-router.post("/update-profile/:id",isAuth,upload.single("profileImage"), updateController);
+router.post("/update-profile/:id",isAuth, upload.single("profileImage"), updateController);
 router.post("/verify-token", tokenController);
+router.post("/confirm-email", confirmEmailController);
+router.post("/set-new-password", setNewPasswordController);
 
 module.exports = router;
