@@ -13,53 +13,51 @@ import {
 } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 
-export const UpdateProfile = ({ currentUser,setCurrentUser, setEdit }) => {
+export const UpdateProfile = ({ currentUser, setCurrentUser, setEdit }) => {
 	const [regResponse, setregResponse] = useState("");
 	const [filename, setFileName] = useState("");
 	const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png"];
-    let navigate = useNavigate()
+	let navigate = useNavigate();
 
+	async function getFileObject(currentUser) {
+		try {
+			console.log(typeof currentUser.profileImage);
+			if (typeof currentUser.profileImage == "string") {
+				const fileUrl = `http://localhost:8080/uploads/${currentUser.profileImage}`;
 
-    async function getFileObject(currentUser) {
-        try {
-            console.log(typeof(currentUser.profileImage))
-        if(typeof(currentUser.profileImage) == "string"){
-          const fileUrl = `http://localhost:8080/uploads/${currentUser.profileImage}`;
-      
-          // Fetch the file and convert it to a Blob
-          const response = await fetch(fileUrl);
-          const fileBlob = await response.blob();
-      
-          // Create a File object if needed (optional)
-          const fileName = currentUser.profileImage;
-          const fileObject = new File([fileBlob], fileName, { type: response.headers.get('content-type') });
-          console.log(currentUser.profileImage)
-          return fileObject;
-        }else{
-            return "not a file"
-        }
-        } catch (error) {
-          console.error('Error fetching or converting file:', error);
-          throw error; // You might want to handle the error appropriately in your application
-        }
-      }
-      
-      // Example usage:
-    let currentFile;     
-      getFileObject(currentUser)
-        .then((fileObject) => {
-            if(typeof(fileObject !== "string")){
-                currentFile = fileObject
-            }else{
-                setCurrentUser({...currentUser, profileImage: currentUser.pr})
-            }
-        })
-        .catch(error => {
-          // Handle the error
-        });
-      
+				// Fetch the file and convert it to a Blob
+				const response = await fetch(fileUrl);
+				const fileBlob = await response.blob();
 
+				// Create a File object if needed (optional)
+				const fileName = currentUser.profileImage;
+				const fileObject = new File([fileBlob], fileName, {
+					type: response.headers.get("content-type"),
+				});
+				console.log(currentUser.profileImage);
+				return fileObject;
+			} else {
+				return "not a file";
+			}
+		} catch (error) {
+			console.error("Error fetching or converting file:", error);
+			throw error; // You might want to handle the error appropriately in your application
+		}
+	}
 
+	// Example usage:
+	let currentFile;
+	getFileObject(currentUser)
+		.then((fileObject) => {
+			if (typeof (fileObject !== "string")) {
+				currentFile = fileObject;
+			} else {
+				setCurrentUser({ ...currentUser, profileImage: currentUser.pr });
+			}
+		})
+		.catch((error) => {
+			// Handle the error
+		});
 
 	const registerSchema = Yup.object().shape({
 		name: Yup.string().min(3).required(),
@@ -76,7 +74,7 @@ export const UpdateProfile = ({ currentUser,setCurrentUser, setEdit }) => {
 		// 		"upload smaller file",
 
 		// 		(value) => {
-        //             console.log(value)
+		//             console.log(value)
 		// 			return !value || (value && value.size <= 5000000);
 		// 		}
 		// 	)
@@ -103,12 +101,11 @@ export const UpdateProfile = ({ currentUser,setCurrentUser, setEdit }) => {
 					{
 						headers: {
 							"Content-Type": "multipart/form-data",
-							"Authorization": `Bearer ${localStorage.getItem("token")}`,
+							Authorization: `Bearer ${localStorage.getItem("token")}`,
 						},
 					}
 				);
 				setregResponse(response.data.message);
-                navigate("/")
 			} catch (error) {
 				setregResponse(error.response.data);
 			}
@@ -119,21 +116,7 @@ export const UpdateProfile = ({ currentUser,setCurrentUser, setEdit }) => {
 		<div>
 			<div
 				onClick={() => setEdit(false)}
-				style={{
-					textAlign: "center",
-					fontFamily: "outfit",
-					height: "30px",
-					width: "30px",
-					borderRadius: "50%",
-					background: "#b619d9",
-					color: "white",
-					fontWeight: "700",
-					display: "flex",
-					alignItems: "center",
-					justifyContent: "center",
-					position: "relative",
-					left: "10px",
-				}}
+				className="cancel-edit"
 			>
 				X
 			</div>
@@ -256,16 +239,45 @@ export const UpdateProfile = ({ currentUser,setCurrentUser, setEdit }) => {
 				</div>
 
 				<button type="submit">Update</button>
-				<h4
-					style={{
-						color: "green",
-						textAlign: "center",
-						fontFamily: "outfit",
-						marginTop: "10px",
-					}}
-				>
-					{regResponse}
-				</h4>
+				{regResponse.includes("Successfully") ? (
+					<>
+						<p
+							style={{
+								color: "green",
+								textAlign: "center",
+								fontFamily: "outfit",
+								marginTop: "10px",
+							}}
+						>
+							{regResponse}
+						</p>{" "}
+						<div
+							style={{
+								color: "#663dff",
+								textAlign: "center",
+								fontFamily: "outfit",
+								marginTop: "10px",
+							}}
+						>
+							<span
+								style={{ cursor: "pointer" }}
+								onClick={() => setEdit(false)}
+							>
+								Go to Homepage
+							</span>
+						</div>
+					</>
+				) : (
+					<p
+						style={{
+							textAlign: "center",
+							fontFamily: "outfit",
+							marginTop: "10px",
+						}}
+					>
+						{regResponse}
+					</p>
+				)}
 			</form>
 		</div>
 	);

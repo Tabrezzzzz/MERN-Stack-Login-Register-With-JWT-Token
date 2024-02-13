@@ -151,11 +151,13 @@ svg#upload-alt path {
 	margin-left: 10px;
 }
 label[for="profileImage"] {
-	height: 100px;
-	margin-bottom: 20px;
-	width: auto;
-	/* overflow: hidden; */
-	display: block !important;
+    height: 100px;
+    margin-bottom: 20px;
+    width: auto;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
 }
 
 /* home css */
@@ -241,4 +243,21 @@ span.password-icon {
   position: absolute;
   right: 10px;
   top: 35px;
+}
+.cancel-edit {
+    text-align: center;
+    font-family: outfit;
+    height: 30px;
+    width: 30px;
+    border-radius: 8px;
+    background: rgb(182, 25, 217);
+    color: white;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+    top: 0;
 }

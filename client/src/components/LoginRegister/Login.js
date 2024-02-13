@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Formik, Form, Field, useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { FaArrowRightToBracket, FaEnvelope, FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
+import { Navigate, useNavigate } from "react-router-dom";
+import { FaArrowRightToBracket, FaEnvelope, FaLock, FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 
 export const Login = (props) => {
 	const [responseMessage, setResponseMessage] = useState("");
@@ -34,7 +34,7 @@ export const Login = (props) => {
 				localStorage.removeItem("token");
 				localStorage.setItem("token", response.data.token);
 				if (response.data.message == "User Logged in successfully") {
-					navigate("/");
+					navigate("/")
 				} else {
 					console.log("Err");
 				}
@@ -57,7 +57,7 @@ export const Login = (props) => {
 				<span className="input-icon">
 					<FaEnvelope color="#b619d9" />
 				</span>
-				<p className={formik.errors.password ? "error-message" : ""}>
+				<p className={formik.errors.email ? "error-message" : ""}>
 						{formik.errors.email ? formik.errors.email : ""}
 					</p>
 			</div>
@@ -69,7 +69,7 @@ export const Login = (props) => {
 					onChange={formik.handleChange}
 					value={formik.values.password}
 				/>
-				<span className="input-icon">
+				<span className="password-icon">
 				{showPassword ? (
 							<FaRegEyeSlash
 								color="#b619d9"
@@ -84,6 +84,9 @@ export const Login = (props) => {
 							/>
 						)}
 				</span>
+				<span className="input-icon">
+					<FaLock color="#b619d9"/>
+					</span>
 				<p className={formik.errors.password ? "error-message" : ""}>
 						{formik.errors.password ? formik.errors.password : ""}
 					</p>

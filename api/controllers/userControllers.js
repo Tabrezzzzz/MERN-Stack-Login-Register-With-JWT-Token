@@ -12,7 +12,7 @@ let registerController = async (req , res) => {
   }else{
     profile=null
   }
-    console.log(req.file)
+
     try{
         let {name, email, phoneNumber, profileImage, password} = req.body;
         let emailExist = await  user.findOne({email: email});
