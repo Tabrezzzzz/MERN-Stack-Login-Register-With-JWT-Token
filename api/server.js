@@ -40,7 +40,8 @@ app.get("/uploads/:name", (req, res, next) => {
   });
 
 
-app.listen(8080, () =>{
+const server = app.listen(8080, () =>{
+  console.log(server.address().address)
     console.log("port is running on 8080")
 })
 

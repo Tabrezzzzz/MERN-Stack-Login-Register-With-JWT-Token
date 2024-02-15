@@ -7,7 +7,8 @@ let {
   updateController,
   confirmEmailController,
   setNewPasswordController,
-  isAuth
+  isAuth,
+  deleteController
 } = require("../controllers/userControllers");
 
 // handle multipart Formdata 
@@ -31,7 +32,8 @@ router.post("/login", loginController);
 router.post("/register",upload.single("profileImage"), registerController);
 router.post("/update-profile/:id",isAuth, upload.single("profileImage"), updateController);
 router.post("/verify-token", tokenController);
-router.post("/confirm-email", confirmEmailController);
-router.post("/set-new-password", setNewPasswordController);
+router.post("/confirm-email",isAuth, confirmEmailController);
+router.post("/set-new-password",isAuth, setNewPasswordController);
+router.delete("/delete-account/:id",isAuth, deleteController);
 
 module.exports = router;

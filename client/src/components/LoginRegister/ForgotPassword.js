@@ -14,6 +14,7 @@ export const ForgotPassword = ({ setForgotPassword }) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         body: JSON.stringify({ email }),
       });
@@ -38,6 +39,7 @@ export const ForgotPassword = ({ setForgotPassword }) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         body: JSON.stringify({ email, newPassword }),
       });
@@ -91,7 +93,7 @@ export const ForgotPassword = ({ setForgotPassword }) => {
             <button type="submit">Set New Password</button>
           </form>
         )}
-        <p>{message}</p>
+        <p className="error-message">{message}</p>
       </div>
     </div>
   );

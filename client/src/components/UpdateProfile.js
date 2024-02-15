@@ -13,6 +13,7 @@ import {
 	FaX,
 } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+import { Delete } from "./Delete";
 
 export const UpdateProfile = ({ currentUser, setCurrentUser, setEdit }) => {
 	const [regResponse, setregResponse] = useState("");
@@ -22,7 +23,6 @@ export const UpdateProfile = ({ currentUser, setCurrentUser, setEdit }) => {
 
 	async function getFileObject(currentUser) {
 		try {
-			console.log(typeof currentUser.profileImage);
 			if (typeof currentUser.profileImage == "string") {
 				const fileUrl = `http://localhost:8080/uploads/${currentUser.profileImage}`;
 
@@ -35,7 +35,6 @@ export const UpdateProfile = ({ currentUser, setCurrentUser, setEdit }) => {
 				const fileObject = new File([fileBlob], fileName, {
 					type: response.headers.get("content-type"),
 				});
-				console.log(currentUser.profileImage);
 				return fileObject;
 			} else {
 				return "not a file";
@@ -278,6 +277,7 @@ export const UpdateProfile = ({ currentUser, setCurrentUser, setEdit }) => {
 					</p>
 				)}
 			</form>
+			<Delete currentUser={currentUser} />
 		</div>
 	);
 };

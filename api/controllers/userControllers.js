@@ -78,9 +78,14 @@ let tokenController = async (req, res) => {
           // Attach token with request
           req.user = decode;
           let authUser = await user.findOne({_id : req.user._id});
-          res.json({
-            authUser,
-            message: "Valid JWT Token"}, 200)
+          if(authUser){
+            res.json({
+              authUser,
+              message: "Valid JWT Token"}, 200)
+          }else{
+            res.status(201).json({ message: "Unauthorized" });
+          }
+          
         } else {
           res.status(201).json({ message: "Unauthorized" });
         }
@@ -92,14 +97,15 @@ let tokenController = async (req, res) => {
 let isAuth = async (req, res, next) => {
   try {
       if (req.headers.authorization) {
-      console.log(req.headers.authorization)
         const token = req.headers.authorization.split(" ")[1]; 
         const decode = jwt.verify(token, process.env.PROFILE_LOGIN_JWT_SECRET);
         req.user = decode;
         let authUser = await user.findOne({_id : req.user._id});
         if(authUser){
           next()
-        } 
+        }else{
+          res.status(201).json({ message: "Unauthorized" });
+        }
       } else {
         res.status(201).json({ message: "Unauthorized" });
       }
@@ -168,6 +174,21 @@ let setNewPasswordController = async (req, res) => {
   }
 };
 
+let deleteController = async (req, res) =>{
+  let {id} = req.params
+  try {
+    let deletedUser = await user.findOneAndDelete({_id : id})
+    console.log(deletedUser)
+    if(!deletedUser){
+        return res.status(404).json({message:`No User Found With This ${id}`});
+    }else{
+       res.status(200).send("User Deleted Successfully")
+    }
+   }catch(e){
+       res.status(400).send("error")
+   }
+}
+
 
 module.exports = {
   loginController,
@@ -177,4 +198,5 @@ module.exports = {
   isAuth,
   confirmEmailController,
   setNewPasswordController,
+  deleteController
 }

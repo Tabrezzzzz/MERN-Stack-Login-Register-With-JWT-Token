@@ -4,10 +4,13 @@ import { FaArrowRightToBracket, FaPenToSquare } from "react-icons/fa6";
 import { Register } from "./LoginRegister/Register";
 import "../App.css";
 import { UpdateProfile } from "./UpdateProfile";
+import { useNavigate } from "react-router-dom";
 
-export const Home = () => {
+export const Home = ({authentication}) => {
 	const [currentUser, setCurrentUser] = useState();
 	const [edit, setEdit] = useState(false);
+	let navigate = useNavigate()
+
 
 	useEffect(() => {
 		const getUser = async () => {
@@ -22,9 +25,10 @@ export const Home = () => {
 						},
 					}
 				);
-
+				if(response.data.message !== "Valid JWT Token"){
+					navigate( "/login-register" )
+				}
 				setCurrentUser(response.data.authUser);
-				console.log(response.data.authUser); // Log the updated user data
 			} catch (error) {
 				console.error("Error fetching user:", error);
 			}
@@ -57,6 +61,10 @@ export const Home = () => {
 								fontSize={"20px"}
 								color={"#b91dd3"}
 								cursor={"pointer"}
+								style={{
+									position:"absolute",
+									right:"0"
+								}}
 								onClick={() => setEdit(true)}
 							/>
 						</div>
